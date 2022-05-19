@@ -1,10 +1,10 @@
-FROM node:14
-WORKDIR /app
-COPY package.json .
-RUN npm install
-COPY server.js .
-COPY server.cert .
-COPY server.key .
+# Dockerfile
+FROM ruby:2.7.4
 
-EXPOSE 6443
-CMD [ "node", "server.js" ]
+WORKDIR /app
+COPY . /app
+RUN bundle install
+
+EXPOSE 4567
+
+CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]

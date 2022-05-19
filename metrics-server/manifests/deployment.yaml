@@ -13,11 +13,11 @@ spec:
         app: my-metrics-exporter
     spec:
       containers:
-      - image: shubhomoy777/my-metrics-server
+      - image: rodrigoeliassanchezvu/ruby-metrics-api
         name: my-metrics-exporter
         ports:
-        - containerPort: 6443
-      nodeName: group-12-node-2
+        - containerPort: 443
+      # nodeName: group-12-node-2
 
 ---
 
@@ -28,6 +28,7 @@ metadata:
 spec:
   ports:
   - port: 443
+    name: https
     protocol: TCP
     targetPort: 6443 
   selector:
