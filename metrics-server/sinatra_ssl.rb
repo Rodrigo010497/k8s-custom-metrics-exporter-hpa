@@ -7,14 +7,13 @@ module Sinatra
       key_content = File.open(ssl_key).read
 
       server_options = {
-        :Host => 443,
-        :Port => 6443,
+        :BindAddress => 'https://10.110.95.204:443/apis/custom.metrics.k8s.io/v1beta1',
+        :Port => port,
         :SSLEnable => true,
         :SSLCertificate => OpenSSL::X509::Certificate.new(certificate_content),
         # 123456 is the Private Key Password
-        :SSLPrivateKey => OpenSSL::PKey::RSA.new(key_content,"123456")
+        :SSLPrivateKey => OpenSSL::PKey::RSA.new(key_content)
       }
-
       Rack::Handler::WEBrick.run self, server_options do |server|
         [:INT, :TERM].each { |sig| trap(sig) { server.stop } }
         server.threaded = settings.threaded if server.respond_to? :threaded=

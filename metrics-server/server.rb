@@ -1,14 +1,8 @@
-require 'sinatra/base'
-require 'webrick'
-require 'webrick/https'
-require 'openssl'
-
 require 'sinatra'
-require './sinatra_ssl'
-
-set :ssl_certificate, "server.crt"
+require_relative 'sinatra_ssl'
+set :ssl_certificate, "server.cert"
 set :ssl_key, "server.key"
-set :port, 9494
+set :port, 6443
 
 get '/try' do
     "helloworld"
