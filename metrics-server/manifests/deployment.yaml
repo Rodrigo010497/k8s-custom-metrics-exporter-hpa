@@ -16,7 +16,13 @@ spec:
       - image: rodrigoeliassanchezvu/ruby-metrics-api
         name: my-metrics-exporter
         ports:
-        - containerPort: 443
+        - containerPort: 6443
+        command: ["/bin/sh","-c"]
+        args: ["bundle exec puma -b 'ssl://0.0.0.0:6443?key=server.key&cert=server.cert' config.ru"]
+        # workingDir: /
+        #args: ["bundle exec rackup --host 0.0.0.0 -p 6443"]
+        # command: [ "/bin/bash", "-c", "--" ]
+        # args: [ "while true; do sleep 30; done;" ]
       # nodeName: group-12-node-2
 
 ---

@@ -7,7 +7,7 @@ module Sinatra
       key_content = File.open(ssl_key).read
 
       server_options = {
-        :BindAddress => 'https://10.110.95.204:443/apis/custom.metrics.k8s.io/v1beta1',
+        :BindAddress => 'https://my-metrics-exporter.default.svc.cluster.local',
         :Port => port,
         :SSLEnable => true,
         :SSLCertificate => OpenSSL::X509::Certificate.new(certificate_content),
