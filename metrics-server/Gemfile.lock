@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    json (2.6.2)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
@@ -20,13 +21,15 @@ GEM
     webrick (1.7.0)
 
 PLATFORMS
+  universal-darwin-21
   x86_64-darwin-20
 
 DEPENDENCIES
+  json
   openssl
   puma
   sinatra (~> 2.1)
   webrick
 
 BUNDLED WITH
-   2.3.13
+   2.3.20
