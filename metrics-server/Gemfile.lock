@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    curb (1.0.1)
+    json (2.6.2)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.8)
@@ -23,6 +25,8 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  curb
+  json
   openssl
   puma
   sinatra (~> 2.1)
