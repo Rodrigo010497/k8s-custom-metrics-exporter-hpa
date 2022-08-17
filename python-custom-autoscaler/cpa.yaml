@@ -6,8 +6,8 @@ spec:
   template:
     spec:
       containers:
-      - name: simple-pod-metrics-python
-        image: simple-pod-metrics-python:latest
+      - name: simple-pod-metrics-python 
+        image: patricksudo/simple-pod-metrics-python:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
