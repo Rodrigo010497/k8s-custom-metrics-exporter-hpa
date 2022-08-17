@@ -1,4 +1,5 @@
 .DS_Store
+.vscode
 images/
 metrics-server/node_modules/
 metrics-server/server.cert
