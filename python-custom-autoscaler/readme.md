@@ -42,7 +42,13 @@ You need to deploy an app for the CPA to manage:
 - Deploy the app using a deployment.
 
   ```bash
-  kubectl apply -f ../flask-metric/deployment.yaml
+  kubectl apply -f ./flask-metric/deployment.yaml
+  ```
+
+- Deploy the service load-balancer.
+
+  ```bash
+  kubectl apply -f ./flask-metric/service.yaml
   ```
 
 - Now you have an app running to manage scaling for.
@@ -65,6 +71,7 @@ Once CPAs have been enabled on your cluster, you need to build this example, run
 
   Now the CPA should be running on your cluster, managing the app we previously deployed.
 
+
 ## Testing the CPA
 
 - List pods.
@@ -73,17 +80,11 @@ Once CPAs have been enabled on your cluster, you need to build this example, run
   kubectl get po
   ```
 
-- Exec into a pod.
-
-  ```bash
-  kubectl exec -it POD_NAME bash
-  ```
-
 - Get value.
-  `metric`
+  `curl -X POST http://EXTERNAL-IP:8000/metric`
 
 - Increment value.
-  `increment`
+  `curl -X POST http://EXTERNAL-IP:8000/increment`
 
 - Decrement value.
-  `decrement`
+  `curl -X POST http://EXTERNAL-IP:8000/decrement`
