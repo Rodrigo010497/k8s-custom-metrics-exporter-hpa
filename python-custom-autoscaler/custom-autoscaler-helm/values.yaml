@@ -1,0 +1,24 @@
+app.kubernetes.io/managed-by: Helm
+meta.helm.sh/release-namespace: default
+meta.helm.sh/release-name: cpa
+
+name : flask-metric
+replicaCount: 1
+
+ingress:
+  path: "/autoscale"
+
+deployment:
+  labels:
+    app: flask-metric 
+
+image:
+  repository: flask-metric
+  tag: latest
+
+service:
+  port: 80
+  targetPort: 5000
+  selector:
+    app: flask-metric
+
