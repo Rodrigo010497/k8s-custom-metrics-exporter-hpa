@@ -43,13 +43,16 @@ def main():
 
 def evaluate(spec):
     # Count total available
-    total_available = 0
+    total_metrics = 0
     for metric in spec["metrics"]:
-        json_value = metric["value"]
-        available = json.loads(json_value)["available"]
-        total_available += int(available)
+        json_value = json.loads(metric["value"])
+        metric = json_value["items"][0]["value"]
+        with open('evaluate-out.json', 'w') as f:
+            f.write(json.dumps(spec))
+        total_metrics += int(metric)
 
     # Get current replica count
+    target_metric = 5
     target_replica_count = int(spec["resource"]["spec"]["replicas"])
 
     # Decrease target replicas if more than 5 available
@@ -62,7 +65,7 @@ def evaluate(spec):
 
     # Build JSON dict with targetReplicas
     evaluation = {}
-    evaluation["targetReplicas"] = target_replica_count
+    evaluation["targetReplicas"] = total_metrics
 
     # Output JSON to stdout
     sys.stdout.write(json.dumps(evaluation))
