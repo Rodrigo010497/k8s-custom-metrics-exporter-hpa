@@ -44,29 +44,28 @@ def main():
 def evaluate(spec):
     # Count total available
     total_metrics = 0
+    with open('evaluate-out.json', 'w') as f:
+            f.write(json.dumps(spec))
     for metric in spec["metrics"]:
         json_value = json.loads(metric["value"])
         metric = json_value["items"][0]["value"]
-        with open('evaluate-out.json', 'w') as f:
-            f.write(json.dumps(spec))
-        total_metrics += int(metric)
+        total_metrics = int(metric)
 
     # Get current replica count
     target_metric = 5
     target_replica_count = int(spec["resource"]["spec"]["replicas"])
 
-    # Decrease target replicas if more than 5 available
-    if total_available > 5:
+    # Decrease target replicas if bellow target
+    if total_metrics < target_metric:
         target_replica_count -= 1
 
-    # Increase target replicas if none available
-    if total_available <= 0:
+    # Increase target replicas if metric is above target
+    if total_metrics >= target_metric:
         target_replica_count += 1
 
     # Build JSON dict with targetReplicas
     evaluation = {}
     evaluation["targetReplicas"] = total_metrics
-
     # Output JSON to stdout
     sys.stdout.write(json.dumps(evaluation))
 

@@ -4,7 +4,6 @@ require 'json'
 # set :ssl_certificate, "server.cert"
 # set :ssl_key, "server.key"
 # set :port, 6443
-
 get '/apis/custom.metrics.k8s.io/v1beta1' do
   content_type 'applciation/json'
   {"status": "healthy"}.to_json
@@ -30,7 +29,7 @@ get '/apis/custom.metrics.k8s.io/v1beta1/namespaces/default/services/my-metrics-
         },
             metricName: "instance",
             timestamp: Time.now.strftime("%Y-%m-%dT%I:%M:%SZ"),
-            value: "6"
+            value: JSON.parse(File.read("./value.json"))["value"]
         }
     ]
   }.to_json
@@ -38,4 +37,10 @@ end
 
 get '/try' do
     "helloworld"
+end
+
+post '/change_metric' do
+  metric = { value: params[:value] }
+  File.write( "./value.json", JSON.dump(metric))
+  {param: params.to_json, file: JSON.parse(File.read("./value.json")) }.to_json
 end

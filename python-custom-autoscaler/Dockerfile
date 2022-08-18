@@ -17,6 +17,7 @@ FROM custompodautoscaler/python:latest
 # Install dependencies for debugging
 RUN apt-get update
 RUN apt-get install jq curl -y
+RUN apt-get install vim -y
 # Set up aliases for easy debugging
 RUN echo 'alias metrics="curl -X GET http://localhost:5000/api/v1/metrics | jq ."' >> ~/.bashrc
 RUN echo 'alias evaluation="curl -X POST http://localhost:5000/api/v1/evaluation | jq ."' >> ~/.bashrc
