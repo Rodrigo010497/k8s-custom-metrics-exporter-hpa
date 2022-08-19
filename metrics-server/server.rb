@@ -40,7 +40,7 @@ get '/try' do
 end
 
 post '/change_metric' do
-  metric = { value: params[:value] }
+  metric = JSON.parse request.body.read
   File.write( "./value.json", JSON.dump(metric))
-  {param: params.to_json, file: JSON.parse(File.read("./value.json")) }.to_json
+  {param: metric, file: JSON.parse(File.read("./value.json")) }.to_json
 end
