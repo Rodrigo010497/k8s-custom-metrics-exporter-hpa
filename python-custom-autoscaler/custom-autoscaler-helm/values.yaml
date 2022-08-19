@@ -11,10 +11,14 @@ ingress:
 deployment:
   labels:
     app: flask-metric 
+  image:
+    repository: patricksudo/flask-metric
+    tag: latest
 
-image:
-  repository: flask-metric
-  tag: latest
+cpa:
+  image:
+    repository: patricksudo/simple-pod-metrics-python
+    tag: latest
 
 service:
   port: 80

@@ -6,7 +6,7 @@ spec:
   type: LoadBalancer
   selector:
     {{- with .Values.deployment.labels }}
-    {{ toYaml . | indent 4 }}
+    {{ toYaml . }}
     {{- end }}
   ports: 
     - protocol: "TCP"

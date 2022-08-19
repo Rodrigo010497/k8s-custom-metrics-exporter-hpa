@@ -4,25 +4,25 @@ metadata:
   name: {{ .Values.name }}
   labels:
     {{- with .Values.deployment.labels }}
-    {{ toYaml . | indent 4 }}
+    {{ toYaml . }}
     {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- with .Values.deployment.labels }}
-      {{ toYaml . | indent 6 }}
+      {{ toYaml . }}
       {{- end }}
   template:
     metadata:
       labels:
         {{- with .Values.deployment.labels }}
-        {{ toYaml . | indent 8 }}
+        {{ toYaml . }}
         {{- end }}    
     spec:
       containers:
         - name: {{ .Values.name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
           ports:
           - containerPort: 5000
           imagePullPolicy: IfNotPresent

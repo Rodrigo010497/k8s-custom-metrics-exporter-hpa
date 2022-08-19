@@ -15,6 +15,7 @@
 import json
 import sys
 import requests
+import logging
 
 # JSON piped into this script example:
 # {
@@ -37,16 +38,18 @@ def main():
 
 def metric(spec):
     # Get Pod IP
-    status = spec["resource"]["metadata"]
-    with open('metric-out.json', 'w') as f:
-            f.write(json.dumps(spec))
-    namespace = status["namespace"]
+    status = spec["resource"]["status"]
+    # ip = status["podIP"]
     try:
         # Make request to Pod metric endpoint
         # (see ../flask-metrics/ folder for simple flask app exposing this endpoint)
-        response = requests.get(f"https://my-metrics-exporter.default.svc.cluster.local/apis/custom.metrics.k8s.io/v1beta1/namespaces/{namespace}/services/my-metrics-exporter/instance", verify=False)
+        response = requests.get(f"http://172.17.0.2:5000/metric")
         # Output whatever metrics are gathered to stdout
         sys.stdout.write(response.text)
+    except HTTPError as http_err:
+        # If an error occurs, output error to stderr and exit with status 1
+        sys.stderr.write(f"HTTP error occurred: {http_err}")
+        exit(1)
     except Exception as err:
         # If an error occurs, output error to stderr and exit with status 1
         sys.stderr.write(f"Other error occurred: {err}")

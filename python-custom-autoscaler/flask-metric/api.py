@@ -2,7 +2,7 @@ from flask import Flask, abort
 import json
 app = Flask(__name__)
 
-MAX_METRIC = 5
+MAX_METRIC = 10
 MIN_METRIC = 0
 global_metric = 0
 

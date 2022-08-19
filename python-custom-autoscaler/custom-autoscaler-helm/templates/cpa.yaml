@@ -7,8 +7,8 @@ spec:
     spec:
       containers:
       - name: simple-pod-metrics-python
-        image: rodrigoeliassanchezvu/simple-pod-metrics-python:latest
-        imagePullPolicy: Always
+        image: "{{ .Values.cpa.image.repository }}:{{ .Values.cpa.image.tag }}"
+        imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
